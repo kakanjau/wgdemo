@@ -20,12 +20,26 @@ export default {
   },
   mounted() {
     // console.info('in side');
+    this.camera.position.set( 200, 100, 600 );
+    this.initObject();
+    const length = 10000;
+    const g = new THREE.PlaneGeometry(length, length, 10, 10);
+    const plant = this.createMesh(g);
+    plant.position.set(length/2,0,-length/2);
+    plant.rotation.x = - Math.PI / 2;
+    this.scene.add(plant);
     this.renderer.clear();
     this.renderer.render( this.scene, this.camera );
   },
   methods: {
     initObject() {
-
+      const box = new THREE.BoxGeometry(50, 50, 50);
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+      });
+      const object = new THREE.Mesh(box, material);
+      object.position.set(-50,50,30);
+      this.scene.add(object);
     },
   }
 };
